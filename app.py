@@ -71,6 +71,18 @@ def decrypt_data(encrypted_text, passkey):
 st.set_page_config(page_title="Secure Data App", page_icon="🛡️")
 st.title("🛡️ Secure Data Encryption System")
 
+st.markdown("""
+<style>
+    .instructions {
+        background-color: black;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        border-left: 5px solid #1e90ff;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 menu = ["Home", "Store Data", "Retrieve Data", "Login"]
 choice = st.sidebar.selectbox("📂 Navigation", menu)
 
@@ -79,6 +91,16 @@ choice = st.sidebar.selectbox("📂 Navigation", menu)
 # ------------------------------
 if choice == "Home":
     st.subheader("🏠 Welcome to the Secure Data System")
+    st.markdown("""
+    <div class="instructions">
+    👋 **Instructions for Use:**
+
+    - Navigate using the sidebar on the left.
+    - Go to **Store Data** to encrypt and save your private data.
+    - Later, go to **Retrieve Data** to decrypt and view it using your secret passkey.
+    - After 3 failed attempts, you'll need to **Login** again for security reasons.
+    </div>
+    """, unsafe_allow_html=True)
     st.info("Use this app to **securely store and retrieve data** using unique passkeys.")
 
 # ------------------------------
@@ -86,6 +108,15 @@ if choice == "Home":
 # ------------------------------
 elif choice == "Store Data":
     st.subheader("🔐 Store Data Securely")
+    st.markdown("""
+    <div class="instructions">
+    ✅ **How to Store Data:**
+    - Enter the data you want to store in the first box.
+    - Provide a secure passkey in the second field.
+    - Click the button to encrypt and store it safely.
+    </div>
+    """, unsafe_allow_html=True)
+
     user_data = st.text_area("Enter the data you want to store:")
     passkey = st.text_input("Enter a secret passkey:", type="password")
 
@@ -111,6 +142,15 @@ elif choice == "Retrieve Data":
         st.warning("🚨 Too many failed attempts! Please reauthorize from the Login Page.")
     else:
         st.subheader("🔍 Retrieve Your Data")
+        st.markdown("""
+        <div class="instructions">
+        🔓 **How to Retrieve Data:**
+        - Paste your encrypted data string.
+        - Enter your secret passkey used at the time of storing.
+        - If everything matches, your original data will be shown.
+        </div>
+        """, unsafe_allow_html=True)
+
         encrypted_text = st.text_area("Enter your encrypted data:")
         passkey = st.text_input("Enter your secret passkey:", type="password")
 
@@ -131,6 +171,14 @@ elif choice == "Retrieve Data":
 # ------------------------------
 elif choice == "Login":
     st.subheader("🔐 Reauthorization Required")
+    st.markdown("""
+    <div class="instructions">
+    🔐 **Login Instructions:**
+    - If you entered the wrong passkey 3 times, use this page to reset attempts.
+    - Enter the master password to unlock decryption again.
+    </div>
+    """, unsafe_allow_html=True)
+
     login_pass = st.text_input("Enter master password:", type="password")
 
     if st.button("Login"):
